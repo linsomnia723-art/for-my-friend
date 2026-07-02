@@ -1,2 +1,3 @@
 # for-my-friend
 ~~~
+.
