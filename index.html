@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生日快乐 · 致最棒的学业合伙人</title>
+    <!-- 引入谷歌字体：Cormorant Garamond (顶级优雅英文) 和 Noto Serif SC (高级宋体中文) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 极低调的雾化流光背景与微光星空 -->
+    <div class="stars-container" id="starsContainer"></div>
+    <div class="fog-overlay"></div>
+    <div class="ambient-glow"></div>
+
+    <!-- 极简流音播放控制 -->
+    <button class="music-toggle" id="musicToggle" aria-label="静谧音乐" title="播放/暂停背景乐">
+        <span class="music-record">💿</span>
+        <div class="pulse-indicator">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </button>
+
+    <!-- 主容器：控制整个翻转动画流程 -->
+    <div class="main-wrapper">
+        
+        <!-- ==========================================
+           密码验证锁 (Passcode Lock Screen)
+           ========================================== -->
+        <div class="passcode-overlay active" id="passcodeOverlay">
+            <div class="passcode-card">
+                <div class="passcode-header">SECURITY VERIFICATION</div>
+                <h2 class="passcode-title">验证身份解封信件</h2>
+                <p class="passcode-subtitle">请输入您的生日密码（如 0702）</p>
+                <div class="input-wrapper">
+                    <input type="password" id="passcodeInput" maxlength="6" placeholder="••••" autocomplete="off">
+                    <div class="input-glow"></div>
+                </div>
+                <button class="verify-btn" id="verifyBtn">验证并开启</button>
+                <div class="error-msg" id="errorMsg">验证密码不正确，请重新输入</div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+           第一阶段：3D 漆封信封 (3D Envelope Screen)
+           ========================================== -->
+        <div class="envelope-container" id="envelopeContainer">
+            <div class="envelope-hint">
+                <span class="hint-en">An Archive of Shared Moments</span>
+                <span class="hint-zh">点击火漆封口，开启专属记忆</span>
+            </div>
+            
+            <div class="envelope" id="envelope">
+                <!-- 信封后部与两侧折边 -->
+                <div class="envelope-back"></div>
+                
+                <!-- 信封底折边 -->
+                <div class="envelope-bottom"></div>
+                
+                <!-- 内部隐藏信件卡片（滑出前不可见） -->
+                <div class="envelope-paper-preview" id="paperPreview"></div>
+                
+                <!-- 信封前部（左右交叠折边） -->
+                <div class="envelope-left"></div>
+                <div class="envelope-right"></div>
+                
+                <!-- 信封顶盖（可翻折） -->
+                <div class="envelope-flap" id="envelopeFlap"></div>
+                
+                <!-- 3D 蜡油火漆印章 -->
+                <div class="wax-seal" id="waxSeal">
+                    <div class="seal-inner">
+                        <!-- 极简猫咪/篮球几何徽标 -->
+                        <svg class="seal-logo" viewBox="0 0 100 100">
+                            <!-- 外部篮球纹理弧线 -->
+                            <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+                            <path d="M 12 50 C 35 30 65 30 88 50" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+                            <!-- 内部小猫猫头轮廓 -->
+                            <path d="M 40 60 C 40 45 60 45 60 60" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"/>
+                            <polygon points="38,45 35,32 46,40" fill="rgba(255,255,255,0.5)"/>
+                            <polygon points="62,45 65,32 54,40" fill="rgba(255,255,255,0.5)"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+           第二阶段：信件卡片/笔记本 (Letter/Journal Page)
+           ========================================== -->
+        <div class="notebook-card" id="notebookCard">
+            <!-- 顶部页眉 & 菜单导航 -->
+            <div class="card-header">
+                <div class="brand-title">
+                    <span class="serial">LOG-2026.07.02</span>
+                    <span class="title-main">日常观测日志 · 特别卷</span>
+                </div>
+                <nav class="nav-tabs">
+                    <button class="nav-btn active" data-target="wishes-page">研讨记录</button>
+                    <button class="nav-btn" data-target="memes-page">画廊存证</button>
+                    <button class="nav-btn" data-target="ambient-page">静谧触控</button>
+                </nav>
+            </div>
+
+            <!-- 主纸张内容区 -->
+            <div class="card-body">
+                
+                <!-- 页面1：真挚祝愿与卡片观测日志 -->
+                <div class="journal-page active" id="wishes-page">
+                    <div class="letter-intro">
+                        <p class="meta-line">观测主体: 优秀的科研战友兼球场搭子</p>
+                    </div>
+
+                    <!-- 完整的原始信件 (已加密，输入正确密码后动态渲染) -->
+                    <div class="original-letter" id="secretLetter">
+                        <!-- 档案已被加密安全锁保护，解密中... -->
+                    </div>
+
+                    <!-- 优雅的金色分割线 -->
+                    <div class="letter-divider">
+                        <span class="divider-line"></span>
+                        <span class="divider-seal">✦</span>
+                        <span class="divider-line"></span>
+                    </div>
+
+                    <div class="logs-header">
+                        <span class="logs-meta-title">OBSERVATION LOGS / 友情观测记录</span>
+                    </div>
+
+                    <!-- 3D 翻转卡片组 -->
+                    <div class="logs-grid">
+                        
+                        <!-- 卡片一：专注与靠谱 -->
+                        <div class="log-card" data-index="1">
+                            <div class="card-inner">
+                                <div class="card-front">
+                                    <div class="card-badge">OBS-001</div>
+                                    <h3 class="card-title">关于你的“专注”</h3>
+                                    <p class="card-preview">深夜里推导公式或Debug时的稳重与靠谱……</p>
+                                    <div class="card-action">点击拆阅 📁</div>
+                                </div>
+                                <div class="card-back">
+                                    <div class="back-header">OBSERVATION LOG #1</div>
+                                    <p class="back-text">还记得好几次咱们为了交任务，熬夜到凌晨推导公式。你在旁边一言不发地死磕代码和文献，那股专注劲儿真的挺让人心安的。你在学术上的靠谱和敏锐，帮咱们省去了太多走弯路的时间。有你做科研搭子，确实是一件很幸运的事。</p>
+                                    <div class="card-action-close">合上档案 ↩</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 卡片二：球场的光影 -->
+                        <div class="log-card" data-index="2">
+                            <div class="card-inner">
+                                <div class="card-front">
+                                    <div class="card-badge">OBS-002</div>
+                                    <h3 class="card-title">关于你的“篮球”</h3>
+                                    <p class="card-preview">球场上那个干净利落、挥洒汗水的身影……</p>
+                                    <div class="card-action">点击拆阅 📁</div>
+                                </div>
+                                <div class="card-back">
+                                    <div class="back-header">OBSERVATION LOG #2</div>
+                                    <p class="back-text">科研之外，篮球场上的你和推导公式时判若两人。每次看到你干净利落地起跳、投篮、空心入网，都觉得挺有干劲的。这种在球场上的专注与少年气，刚好能把日常里那些繁重的学业压力冲刷得一干二净。新一岁，球技继续飞涨！</p>
+                                    <div class="card-action-close">合上档案 ↩</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 卡片三：隐藏的温柔 -->
+                        <div class="log-card" data-index="3">
+                            <div class="card-inner">
+                                <div class="card-front">
+                                    <div class="card-badge">OBS-003</div>
+                                    <h3 class="card-title">关于你的“反差”</h3>
+                                    <p class="card-preview">平时话不多，却在看到猫咪时停住脚步……</p>
+                                    <div class="card-action">点击拆阅 📁</div>
+                                </div>
+                                <div class="card-back">
+                                    <div class="back-header">OBSERVATION LOG #3</div>
+                                    <p class="back-text">虽然你平时给人一种内敛低调、甚至略带高冷的感觉，但在路上遇到流浪的小野猫时，你却总会放慢甚至停下脚步看很久。这种反差感挺有意思的，大概这就是理科生身上不轻易外露的温柔吧。祝你往后的生活，也能多一些被猫咪治愈的柔软时刻。</p>
+                                    <div class="card-action-close">合上档案 ↩</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 卡片四：长久的友谊 -->
+                        <div class="log-card" data-index="4">
+                            <div class="card-inner">
+                                <div class="card-front">
+                                    <div class="card-badge">OBS-004</div>
+                                    <h3 class="card-title">关于咱们的“默契”</h3>
+                                    <p class="card-preview">每天简短的一两句交流里流淌的信任……</p>
+                                    <div class="card-action">点击拆阅 📁</div>
+                                </div>
+                                <div class="card-back">
+                                    <div class="back-header">OBSERVATION LOG #4</div>
+                                    <p class="back-text">咱们的交流其实很简单，每天虽然就是学业上的讨论或一两句话的问候，但这种不用字斟句酌的相处模式，让我觉得特别踏实和舒服。生日快乐，我的老友！新的一年，祝你的代码少点 Bug，实验一把过，生活和学业万事胜意！</p>
+                                    <div class="card-action-close">合上档案 ↩</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- 页面2：画廊存证 (Meme Museum) -->
+                <div class="journal-page" id="memes-page">
+                    <div class="gallery-intro">
+                        <span class="gallery-meta">COLLECTION OF SHARED LAUGHTER</span>
+                        <h2 class="gallery-title">学术解压·表情包陈列馆</h2>
+                        <p class="gallery-desc">这里用画廊般的精致线条框架，封存了我们聊天中高频出现的三个“精神内核”。你可以非常方便地替换成真实图片。</p>
+                    </div>
+
+                    <div class="museum-wall">
+                        <!-- 表情架1 -->
+                        <div class="museum-frame">
+                            <div class="brass-plate">GG Bond 认证 · 专注眼神</div>
+                            <div class="frame-inner" id="frame-ggbond">
+                                <!-- 纯CSS表现形式，可在此插入img -->
+                                <div class="museum-art-fallback">🐷</div>
+                                <span class="replacement-tip">可放置猪猪侠表情</span>
+                            </div>
+                            <div class="frame-tag">PLATE 01 / 战友情谊认证</div>
+                        </div>
+
+                        <!-- 表情架2 -->
+                        <div class="museum-frame">
+                            <div class="brass-plate">猫咪 Meme · 编译时的表情</div>
+                            <div class="frame-inner" id="frame-catmeme">
+                                <div class="museum-art-fallback">🐱</div>
+                                <span class="replacement-tip">可放置猫咪表情</span>
+                            </div>
+                            <div class="frame-tag">PLATE 02 / 科研现状实录</div>
+                        </div>
+
+                        <!-- 表情架3 -->
+                        <div class="museum-frame">
+                            <div class="brass-plate">猫和老鼠 · 默契研讨瞬间</div>
+                            <div class="frame-inner" id="frame-tomjerry">
+                                <div class="museum-art-fallback">🐱🐭</div>
+                                <span class="replacement-tip">可放置猫鼠表情</span>
+                            </div>
+                            <div class="frame-tag">PLATE 03 / 精准生活隐喻</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 页面3：静谧触控 (Ambient Interaction) -->
+                <div class="journal-page" id="ambient-page">
+                    <div class="ambient-intro">
+                        <span class="ambient-meta">SPACE OF CALM AND INTERACTION</span>
+                        <h2 class="ambient-title">球场与猫的意象空间</h2>
+                        <p class="ambient-desc">移除了繁琐的按钮，请试着在此处轻轻滑过或点击，享受一段专属于理科生的静谧治愈时刻。</p>
+                    </div>
+
+                    <div class="ambient-box">
+                        <!-- 左区：极简线条风篮球场概念图 -->
+                        <div class="court-blueprint" id="courtBlueprint">
+                            <div class="blueprint-label">GEOMETRY OF BASKETBALL</div>
+                            <svg class="blueprint-svg" viewBox="0 0 200 300">
+                                <!-- 三分线与限制区 -->
+                                <rect x="10" y="10" width="180" height="280" fill="none" stroke="rgba(205, 160, 82, 0.25)" stroke-width="1.5"/>
+                                <path d="M 10 150 L 190 150" stroke="rgba(205, 160, 82, 0.15)" stroke-width="1" stroke-dasharray="4,4"/>
+                                <circle cx="100" cy="150" r="30" fill="none" stroke="rgba(205, 160, 82, 0.2)" stroke-width="1.5"/>
+                                <!-- 篮板与球圈 -->
+                                <line x1="70" y1="25" x2="130" y2="25" stroke="rgba(205, 160, 82, 0.4)" stroke-width="2"/>
+                                <circle cx="100" cy="35" r="10" fill="none" stroke="var(--accent-orange)" stroke-width="2" class="glow-hoop"/>
+                                <!-- 动效辅助点 -->
+                                <circle cx="100" cy="100" r="4" fill="var(--accent-orange)" class="basketball-point" id="ballPoint"/>
+                            </svg>
+                            <div class="blueprint-hint">鼠标划过，感知线条流转</div>
+                        </div>
+
+                        <!-- 右区：静默黑猫剪影 -->
+                        <div class="cat-silence" id="catSilence">
+                            <div class="cat-canvas" id="catCanvas">
+                                <svg class="cat-vector" viewBox="0 0 100 100">
+                                    <path d="M 50 25 C 42 25 40 38 40 45 C 40 55 45 80 32 85 C 45 92 65 92 65 75 C 65 55 60 45 60 35 C 60 30 55 25 50 25 Z" fill="#1b1e25"/>
+                                    <!-- 仅剩发光的猫眼，凸显神秘和品质感 -->
+                                    <circle cx="46" cy="38" r="2" fill="#cda052" class="blinking-eye"/>
+                                    <circle cx="54" cy="38" r="2" fill="#cda052" class="blinking-eye"/>
+                                    <!-- 优雅弯曲的猫尾 -->
+                                    <path d="M 60 80 Q 75 90 70 70" fill="none" stroke="#1b1e25" stroke-width="4" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="cat-message" id="catAmbientMsg">轻抚黑猫，释放指尖微光</div>
+                        </div>
+                    </div>
+
+                    <!-- 隐藏彩蛋触发区 -->
+                    <div class="hidden-buff-indicator" id="buffIndicator">
+                        静谧值：<span id="ambientCount">0</span> / 5
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- 底部致敬栏 -->
+            <div class="card-footer">
+                <span class="copyright">Designed for a Friend · 2026</span>
+                <span class="status-indicator">SYSTEM RUNNING</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 隐藏成就弹窗：电影感大字淡入 -->
+    <div class="cinema-modal" id="cinemaModal">
+        <div class="cinema-content">
+            <div class="gold-seal-dec">✨</div>
+            <h2 class="cinema-title">隐藏档案：写在未来的话</h2>
+            <div class="cinema-body">
+                <p>“我们总是在奔跑，为论文、为代码、为前程忙碌。”</p>
+                <p>“但偶尔，也要在路边为一只野猫停留，在夕阳里看篮球划出完美的抛物线。”</p>
+                <p>“谢谢你做我最靠谱的学术合伙人，愿你新的一岁，依然有梦，有猫，有热爱。”</p>
+                <p class="sig">生日快乐，我的好战友。</p>
+            </div>
+            <button class="close-cinema" id="closeCinema">合上档案</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
