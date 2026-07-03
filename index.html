@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
     <title>生日快乐 · 致最棒的学业合伙人</title>
     <!-- 引入谷歌字体：Cormorant Garamond (顶级优雅英文) 和 Noto Serif SC (高级宋体中文) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +37,6 @@
             <div class="passcode-card">
                 <div class="passcode-header">SECURITY VERIFICATION</div>
                 <h2 class="passcode-title">验证身份解封信件</h2>
-                <p class="passcode-subtitle">请输入您的生日密码（如 0702）</p>
                 <div class="input-wrapper">
                     <input type="password" id="passcodeInput" maxlength="6" placeholder="••••" autocomplete="off">
                     <div class="input-glow"></div>
@@ -62,14 +62,14 @@
                 <!-- 信封底折边 -->
                 <div class="envelope-bottom"></div>
                 
-                <!-- 内部隐藏信件卡片（滑出前不可见） -->
+                <!-- 内部隐藏信件卡片 -->
                 <div class="envelope-paper-preview" id="paperPreview"></div>
                 
                 <!-- 信封前部（左右交叠折边） -->
                 <div class="envelope-left"></div>
                 <div class="envelope-right"></div>
                 
-                <!-- 信封顶盖（可翻折） -->
+                <!-- 信封顶盖 -->
                 <div class="envelope-flap" id="envelopeFlap"></div>
                 
                 <!-- 3D 蜡油火漆印章 -->
@@ -77,10 +77,8 @@
                     <div class="seal-inner">
                         <!-- 极简猫咪/篮球几何徽标 -->
                         <svg class="seal-logo" viewBox="0 0 100 100">
-                            <!-- 外部篮球纹理弧线 -->
                             <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
                             <path d="M 12 50 C 35 30 65 30 88 50" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
-                            <!-- 内部小猫猫头轮廓 -->
                             <path d="M 40 60 C 40 45 60 45 60 60" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"/>
                             <polygon points="38,45 35,32 46,40" fill="rgba(255,255,255,0.5)"/>
                             <polygon points="62,45 65,32 54,40" fill="rgba(255,255,255,0.5)"/>
@@ -94,24 +92,19 @@
            第二阶段：信件卡片/笔记本 (Letter/Journal Page)
            ========================================== -->
         <div class="notebook-card" id="notebookCard">
-            <!-- 顶部页眉 & 菜单导航 -->
+            <!-- 顶部页眉 -->
             <div class="card-header">
                 <div class="brand-title">
                     <span class="serial">LOG-2026.07.02</span>
                     <span class="title-main">日常观测日志 · 特别卷</span>
                 </div>
-                <nav class="nav-tabs">
-                    <button class="nav-btn active" data-target="wishes-page">研讨记录</button>
-                    <button class="nav-btn" data-target="memes-page">画廊存证</button>
-                    <button class="nav-btn" data-target="ambient-page">静谧触控</button>
-                </nav>
             </div>
 
             <!-- 主纸张内容区 -->
             <div class="card-body">
                 
-                <!-- 页面1：真挚祝愿与卡片观测日志 -->
-                <div class="journal-page active" id="wishes-page">
+                <!-- 页面1：原始生日手写信 (密文动态解密) -->
+                <div class="journal-page active" id="page-1">
                     <div class="letter-intro">
                         <p class="meta-line">观测主体: 优秀的科研战友兼球场搭子</p>
                     </div>
@@ -120,16 +113,12 @@
                     <div class="original-letter" id="secretLetter">
                         <!-- 档案已被加密安全锁保护，解密中... -->
                     </div>
+                </div>
 
-                    <!-- 优雅的金色分割线 -->
-                    <div class="letter-divider">
-                        <span class="divider-line"></span>
-                        <span class="divider-seal">✦</span>
-                        <span class="divider-line"></span>
-                    </div>
-
-                    <div class="logs-header">
-                        <span class="logs-meta-title">OBSERVATION LOGS / 友情观测记录</span>
+                <!-- 页面2：日常观测卡片记录 -->
+                <div class="journal-page" id="page-2">
+                    <div class="letter-intro">
+                        <p class="meta-line">观察数据: 友情切片记录 (OBSERVATION LOGS)</p>
                     </div>
 
                     <!-- 3D 翻转卡片组 -->
@@ -206,12 +195,12 @@
                     </div>
                 </div>
 
-                <!-- 页面2：画廊存证 (Meme Museum) -->
-                <div class="journal-page" id="memes-page">
+                <!-- 页面3：画廊存证 (Meme Museum) -->
+                <div class="journal-page" id="page-3">
                     <div class="gallery-intro">
                         <span class="gallery-meta">COLLECTION OF SHARED LAUGHTER</span>
-                        <h2 class="gallery-title">学术解压·表情包陈列馆</h2>
-                        <p class="gallery-desc">这里用画廊般的精致线条框架，封存了我们聊天中高频出现的三个“精神内核”。你可以非常方便地替换成真实图片。</p>
+                        <h2 class="gallery-title">学术解压 · 表情包陈列馆</h2>
+                        <p class="gallery-desc">这里用画廊般的精致线条框架，封存了我们聊天中高频出现的三个“精神内核”。（你可以用本地的表情包图片进行替换）</p>
                     </div>
 
                     <div class="museum-wall">
@@ -219,7 +208,6 @@
                         <div class="museum-frame">
                             <div class="brass-plate">GG Bond 认证 · 专注眼神</div>
                             <div class="frame-inner" id="frame-ggbond">
-                                <!-- 纯CSS表现形式，可在此插入img -->
                                 <div class="museum-art-fallback">🐷</div>
                                 <span class="replacement-tip">可放置猪猪侠表情</span>
                             </div>
@@ -248,78 +236,26 @@
                     </div>
                 </div>
 
-                <!-- 页面3：静谧触控 (Ambient Interaction) -->
-                <div class="journal-page" id="ambient-page">
-                    <div class="ambient-intro">
-                        <span class="ambient-meta">SPACE OF CALM AND INTERACTION</span>
-                        <h2 class="ambient-title">球场与猫的意象空间</h2>
-                        <p class="ambient-desc">移除了繁琐的按钮，请试着在此处轻轻滑过或点击，享受一段专属于理科生的静谧治愈时刻。</p>
-                    </div>
-
-                    <div class="ambient-box">
-                        <!-- 左区：极简线条风篮球场概念图 -->
-                        <div class="court-blueprint" id="courtBlueprint">
-                            <div class="blueprint-label">GEOMETRY OF BASKETBALL</div>
-                            <svg class="blueprint-svg" viewBox="0 0 200 300">
-                                <!-- 三分线与限制区 -->
-                                <rect x="10" y="10" width="180" height="280" fill="none" stroke="rgba(205, 160, 82, 0.25)" stroke-width="1.5"/>
-                                <path d="M 10 150 L 190 150" stroke="rgba(205, 160, 82, 0.15)" stroke-width="1" stroke-dasharray="4,4"/>
-                                <circle cx="100" cy="150" r="30" fill="none" stroke="rgba(205, 160, 82, 0.2)" stroke-width="1.5"/>
-                                <!-- 篮板与球圈 -->
-                                <line x1="70" y1="25" x2="130" y2="25" stroke="rgba(205, 160, 82, 0.4)" stroke-width="2"/>
-                                <circle cx="100" cy="35" r="10" fill="none" stroke="var(--accent-orange)" stroke-width="2" class="glow-hoop"/>
-                                <!-- 动效辅助点 -->
-                                <circle cx="100" cy="100" r="4" fill="var(--accent-orange)" class="basketball-point" id="ballPoint"/>
-                            </svg>
-                            <div class="blueprint-hint">鼠标划过，感知线条流转</div>
-                        </div>
-
-                        <!-- 右区：静默黑猫剪影 -->
-                        <div class="cat-silence" id="catSilence">
-                            <div class="cat-canvas" id="catCanvas">
-                                <svg class="cat-vector" viewBox="0 0 100 100">
-                                    <path d="M 50 25 C 42 25 40 38 40 45 C 40 55 45 80 32 85 C 45 92 65 92 65 75 C 65 55 60 45 60 35 C 60 30 55 25 50 25 Z" fill="#1b1e25"/>
-                                    <!-- 仅剩发光的猫眼，凸显神秘和品质感 -->
-                                    <circle cx="46" cy="38" r="2" fill="#cda052" class="blinking-eye"/>
-                                    <circle cx="54" cy="38" r="2" fill="#cda052" class="blinking-eye"/>
-                                    <!-- 优雅弯曲的猫尾 -->
-                                    <path d="M 60 80 Q 75 90 70 70" fill="none" stroke="#1b1e25" stroke-width="4" stroke-linecap="round"/>
-                                </svg>
-                            </div>
-                            <div class="cat-message" id="catAmbientMsg">轻抚黑猫，释放指尖微光</div>
-                        </div>
-                    </div>
-
-                    <!-- 隐藏彩蛋触发区 -->
-                    <div class="hidden-buff-indicator" id="buffIndicator">
-                        静谧值：<span id="ambientCount">0</span> / 5
+                <!-- 页面4：写在未来的话 (密文动态解密) -->
+                <div class="journal-page" id="page-4">
+                    <div class="original-letter" id="finalWishLetter">
+                        <!-- 档案已被加密安全锁保护，解密中... -->
                     </div>
                 </div>
 
             </div>
             
-            <!-- 底部致敬栏 -->
-            <div class="card-footer">
-                <span class="copyright">Designed for a Friend · 2026</span>
-                <span class="status-indicator">SYSTEM RUNNING</span>
+            <!-- 底部导航与控制栏 -->
+            <div class="slideshow-controls">
+                <button class="control-btn" id="prevBtn" disabled>上一页</button>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="progressBarFill" style="width: 25%;"></div>
+                </div>
+                <span class="page-indicator" id="pageIndicator">01 / 04</span>
+                <button class="control-btn" id="nextBtn">下一页</button>
             </div>
         </div>
 
-    </div>
-
-    <!-- 隐藏成就弹窗：电影感大字淡入 -->
-    <div class="cinema-modal" id="cinemaModal">
-        <div class="cinema-content">
-            <div class="gold-seal-dec">✨</div>
-            <h2 class="cinema-title">隐藏档案：写在未来的话</h2>
-            <div class="cinema-body">
-                <p>“我们总是在奔跑，为论文、为代码、为前程忙碌。”</p>
-                <p>“但偶尔，也要在路边为一只野猫停留，在夕阳里看篮球划出完美的抛物线。”</p>
-                <p>“谢谢你做我最靠谱的学术合伙人，愿你新的一岁，依然有梦，有猫，有热爱。”</p>
-                <p class="sig">生日快乐，我的好战友。</p>
-            </div>
-            <button class="close-cinema" id="closeCinema">合上档案</button>
-        </div>
     </div>
 
     <script src="script.js"></script>

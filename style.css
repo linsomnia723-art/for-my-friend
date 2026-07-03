@@ -390,48 +390,13 @@ body {
     margin-bottom: 4px;
 }
 
-.title-main {
-    font-family: var(--font-serif);
-    font-size: 20px;
-    font-weight: 600;
-    color: #ffffff;
-}
-
-.nav-tabs {
-    display: flex;
-    gap: 8px;
-}
-
-.nav-btn {
-    background: transparent;
-    border: 1px solid transparent;
-    color: var(--text-secondary);
-    padding: 8px 18px;
-    font-size: 13.5px;
-    font-weight: 500;
-    cursor: pointer;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-}
-
-.nav-btn:hover {
-    color: var(--text-primary);
-    background: rgba(205, 160, 82, 0.05);
-}
-
-.nav-btn.active {
-    color: var(--text-dark);
-    background: var(--accent-gold);
-    font-weight: 600;
-    box-shadow: 0 4px 15px rgba(205, 160, 82, 0.3);
-}
-
-/* 纸张内容 */
+/* 纸张内容区 (作为幻灯片滑动的容器) */
 .card-body {
     flex: 1;
     padding: 40px;
     position: relative;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 @media (max-width: 768px) {
@@ -442,7 +407,123 @@ body {
 
 .journal-page {
     display: none;
-    animation: page-fade 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.journal-page.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================
+   年度报告式翻页控制 (Slideshow Controls)
+   ========================================== */
+.slideshow-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px 30px 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+    .slideshow-controls {
+        padding: 16px 24px 24px 24px;
+    }
+}
+
+.control-btn {
+    background: transparent;
+    border: 1px solid var(--border-gold);
+    color: var(--accent-gold);
+    padding: 8px 24px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.control-btn:hover:not(:disabled) {
+    background: var(--accent-gold);
+    color: var(--text-dark);
+    font-weight: 600;
+    box-shadow: 0 0 12px var(--accent-gold-glow);
+}
+
+.control-btn:disabled {
+    opacity: 0.3;
+    border-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    cursor: not-allowed;
+}
+
+/* 进度条指示器 */
+.progress-bar-container {
+    flex: 1;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.04);
+    margin: 0 30px;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: var(--accent-gold);
+    box-shadow: 0 0 8px var(--accent-gold);
+    transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.page-indicator {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent-gold);
+    letter-spacing: 1px;
+}
+
+/* 最后一页：电影感寄语 */
+.final-wish-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 30px auto;
+}
+
+.final-title {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    color: var(--accent-gold);
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+}
+
+.final-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.final-para {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    line-height: 2;
+    color: #e2e8f0;
+    letter-spacing: 1px;
+}
+
+.final-sig {
+    font-family: var(--font-serif);
+    font-size: 15px;
+    color: var(--accent-gold);
+    margin-top: 40px;
+    text-align: right;
+}ic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 .journal-page.active {
@@ -701,279 +782,6 @@ body {
     opacity: 0.8;
 }
 
-/* ==========================================
-   页面3：静谧触控页 (Ambient Space)
-   ========================================== */
-.ambient-intro {
-    margin-bottom: 30px;
-}
-
-.ambient-meta {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--accent-gold);
-    letter-spacing: 2px;
-}
-
-.ambient-title {
-    font-family: var(--font-serif);
-    font-size: 22px;
-    margin: 6px 0;
-    color: #fff;
-}
-
-.ambient-desc {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-}
-
-.ambient-box {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-}
-
-@media (max-width: 600px) {
-    .ambient-box {
-        grid-template-columns: 1fr;
-    }
-}
-
-.court-blueprint, .cat-silence {
-    border: 1px solid var(--border-gold);
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 12px;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 290px;
-    transition: all 0.4s ease;
-}
-
-.court-blueprint:hover, .cat-silence:hover {
-    border-color: var(--accent-gold);
-    box-shadow: 0 0 15px rgba(205, 160, 82, 0.1);
-}
-
-.blueprint-label {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-secondary);
-    letter-spacing: 1px;
-}
-
-.blueprint-svg {
-    width: 110px;
-    height: 165px;
-    overflow: visible;
-}
-
-.glow-hoop {
-    filter: drop-shadow(0 0 8px var(--accent-orange));
-}
-
-.basketball-point {
-    filter: drop-shadow(0 0 6px var(--accent-orange));
-    transform-origin: center;
-}
-
-/* 抛物线运动 */
-.basketball-point.animate {
-    animation: parabole-point 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-@keyframes parabole-point {
-    0% { cx: 100px; cy: 260px; r: 4px; }
-    50% { cx: 40px; cy: 120px; r: 5px; } /* 顶点 */
-    90% { cx: 100px; cy: 35px; r: 3px; }  /* 入网 */
-    100% { cx: 100px; cy: 80px; r: 3px; } /* 下落 */
-}
-
-.blueprint-hint {
-    font-size: 11px;
-    color: var(--text-secondary);
-}
-
-/* 静默黑猫 */
-.cat-canvas {
-    width: 110px;
-    height: 110px;
-    position: relative;
-    cursor: pointer;
-}
-
-.cat-vector {
-    width: 100%;
-    height: 100%;
-}
-
-.blinking-eye {
-    transform-origin: center;
-    animation: blink-gently 5s infinite;
-}
-
-@keyframes blink-gently {
-    0%, 90%, 100% { transform: scaleY(1); }
-    95% { transform: scaleY(0.1); }
-}
-
-.cat-message {
-    font-size: 11px;
-    color: var(--text-secondary);
-    text-align: center;
-}
-
-/* 金色发光漂浮粒子 */
-.ember-particle {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: var(--accent-gold);
-    pointer-events: none;
-    box-shadow: 0 0 6px var(--accent-gold);
-    animation: drift-up 1s ease-out forwards;
-}
-
-@keyframes drift-up {
-    0% { transform: translate(-50%, -50%) scale(1) translateY(0); opacity: 1; }
-    100% { transform: translate(-50%, -50%) scale(2) translateY(-80px) translateX(20px); opacity: 0; }
-}
-
-.hidden-buff-indicator {
-    border-top: 1px dashed rgba(255,255,255,0.06);
-    margin-top: 25px;
-    padding-top: 15px;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--text-secondary);
-    text-align: right;
-}
-
-#ambientCount {
-    color: var(--accent-gold);
-    font-weight: 600;
-}
-
-/* ==========================================
-   卡片页底 (Footer)
-   ========================================== */
-.card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px 30px 40px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    font-size: 11px;
-    color: var(--text-secondary);
-    opacity: 0.8;
-}
-
-.status-indicator {
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.status-indicator::before {
-    content: '';
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent-gold);
-    box-shadow: 0 0 8px var(--accent-gold);
-}
-
-/* ==========================================
-   电影感成就弹窗 (Cinema Modal)
-   ========================================== */
-.cinema-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(4, 5, 6, 0.95);
-    z-index: 120;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 1s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.cinema-modal.active {
-    display: flex;
-    opacity: 1;
-}
-
-.cinema-content {
-    max-width: 600px;
-    width: 90%;
-    text-align: center;
-    transform: translateY(20px);
-    transition: transform 1s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.cinema-modal.active .cinema-content {
-    transform: translateY(0);
-}
-
-.gold-seal-dec {
-    font-size: 28px;
-    color: var(--accent-gold);
-    margin-bottom: 25px;
-}
-
-.cinema-title {
-    font-family: var(--font-serif);
-    font-size: 26px;
-    font-weight: 500;
-    letter-spacing: 2px;
-    color: var(--accent-gold);
-    margin-bottom: 40px;
-}
-
-.cinema-body p {
-    font-family: var(--font-serif);
-    font-size: 17px;
-    line-height: 2.2;
-    color: #d1d5db;
-    margin-bottom: 20px;
-    opacity: 0.9;
-}
-
-.cinema-body .sig {
-    font-size: 15px;
-    color: var(--accent-gold);
-    margin-top: 40px;
-}
-
-.close-cinema {
-    background: transparent;
-    border: 1px solid var(--accent-gold);
-    color: var(--accent-gold);
-    padding: 10px 30px;
-    font-size: 13.5px;
-    border-radius: 20px;
-    cursor: pointer;
-    margin-top: 50px;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-}
-
-.close-cinema:hover {
-    background: var(--accent-gold);
-    color: var(--text-dark);
-    font-weight: 600;
-    box-shadow: 0 0 15px var(--accent-gold-glow);
-}
 
 /* ==========================================
    重新恢复的原始信件排版 (Original Letter Style)
